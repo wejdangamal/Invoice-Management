@@ -1,0 +1,37 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Edit Product";
+}
+<title>@ViewData["Title"]</title>
+<h1 class="text text-center">@ViewData["Title"]</h1>
+<form asp-action="Edit" asp-controller="Product" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="id" type="hidden" class="form-control" id="id" placeholder="Enter Category id">
+    <div class="form-group p-3">
+        <label asp-for="productName">Product Name</label>
+        <input asp-for="productName" type="text" class="form-control" value="@Model.productName" placeholder="Enter Product Name">
+        <span asp-validation-for="productName" class="text text-danger"></span>
+    </div>
+    <div class="form-group p-3">
+        <label asp-for="price">Price</label>
+        <input asp-for="price" type="text" class="form-control"  value="@Model.price" placeholder="Price">
+        <span asp-validation-for="price" class="text text-danger"></span>
+    </div>
+    <div class="form-group p-3">
+        <label asp-for="Quantity">Quantity</label>
+        <input asp-for="Quantity" type="text" class="form-control" value="@Model.Quantity" placeholder="Enter Product Quantity">
+        <span asp-validation-for="Quantity" class="text text-danger"></span>
+    </div>
+    <div class="form-group p-3">
+        <label asp-for="dateAdded">Date Added</label>
+        <input asp-for="dateAdded" value="@Model.dateAdded" class="form-control">
+        <span asp-validation-for="dateAdded" class="text text-danger"></span>
+    </div>
+    <div class="form-group p-3">
+        <label asp-for="categoryId">Catgory ID</label>
+        <input asp-for="categoryId" type="text" class="form-control" value="@Model.categoryId" >
+        <span asp-validation-for="categoryId" class="text text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

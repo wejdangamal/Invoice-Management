@@ -1,0 +1,93 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SalesInvoice
+build_property.RootNamespace = SalesInvoice
+build_property.ProjectDir = D:\.net projects\Algoriza_Traning\Sales_Invoice\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\.net projects\Algoriza_Traning\Sales_Invoice
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Category/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Category/CategoryList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQ2F0ZWdvcnlMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Category/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Category/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Category/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Order/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Order/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Order/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Order/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Product/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Product/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Product/ProductList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0TGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/.net projects/Algoriza_Traning/Sales_Invoice/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-z1a9ypoxh8

@@ -1,0 +1,46 @@
+﻿@model OrderMasterDetailsVM
+@{
+    ViewData["Title"] = "Details";
+}
+<h1 class="text-primary">Details</h1>
+<hr/>
+<ul>
+    <li>
+        <h5><span class="text-secondary">Code:</span> #@Model.orderCode</h5>
+    </li>
+    <li>
+        <h5><span class="text-secondary">Customer Name:</span> @Model.CustomerName</h5>
+    </li>
+    <li>
+        <h5><span class="text-secondary">DateTime:</span> @Model.dateAdded</h5>
+    </li>
+</ul>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Product
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.productsList)
+    {
+        <tr>
+            <td>@item.product_Name</td>         
+            <td>@item.quantity</td>
+            <td>@item.price</td>
+        </tr>      
+    }
+</table>
+<div>
+    <h2><span class="text-secondary">Total Price:</span> @Model.Total_Price$</h2>
+</div>
+<div>
+    <a class="btn btn-outline-primary" asp-action="All">Back to list</a>
+</div>

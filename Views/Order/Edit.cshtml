@@ -1,0 +1,63 @@
+﻿@model OrderMasterDetailsVM
+<div class=" container ">
+    <h3 class="text-capitalize text-center">Order #@Model.orderCode</h3>
+    <div class="row">
+        <div class="rounded-2">
+            <div class="container-fluid">
+                <div class="form-group p-3 mb-3 row">
+                    <label asp-for="CustomerName" class="col-sm-2 col-form-label ">
+                        Custome Name
+                    </label>
+                    <div class="col-sm-10 ">
+                        <input class="form-control customer_name" asp-for="CustomerName" value="@Model.CustomerName"/>
+                    </div>
+                </div>
+                <div class="form-group p-3 mb-3 row">
+                    <label asp-for="orderCode" class="col-sm-2 col-form-label">
+                        Order Code
+                    </label>
+                    <div class="col-sm-10">
+                        <input class="form-control code" asp-for="orderCode" value="@Model.orderCode" disabled />
+                    </div>
+                </div>
+                <div class="form-group p-3 mb-3 row">
+                    <label asp-for="dateAdded" class="col-sm-2 col-form-label">
+                        Date
+                    </label>
+                    <div class="col-sm-10 ">
+                        <input class="form-control date" asp-for="dateAdded" type="datetime" value="@Model.dateAdded" disabled readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Products</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Event</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var product in Model.productsList)
+                        {
+                            <tr class="itemrow">
+                                <td class="w-50"><input class="form-control productName" type="text" id="productName" value="@product.product_Name" disabled/></td>
+                                <td><input class="form-control quantity" type="number" id="Quantity" value="@product.quantity" /></td>
+                                <td><input class="form-control price" type="number" id="price" value="@product.price" /></td>
+                                <td><button type="submit" class="btn btn-danger addItem" id="RemoveItem">Remove</button></td>
+                            </tr>
+                        }         
+                    </tbody>
+                    <tfoot>
+                        <tr><td class="fw-bold">Total Price= @Model.Total_Price$</td></tr>
+                    </tfoot>
+                </table>
+            </div>           
+            <div class="container text-center">
+                <button type="submit" class="btn btn-success w-25" id="save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

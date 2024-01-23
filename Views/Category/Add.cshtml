@@ -1,0 +1,17 @@
+﻿@model CategoryVM
+@{
+    ViewData["Title"] = "Add Categroy";
+}
+<title>@ViewData["Title"]</title>
+<h1 class="text text-center">@ViewData["Title"]</h1>
+<div class="container">
+<form asp-action="Add"  method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+  <div class="form-group p-3" >
+    <label asp-for="name" class="mb-1 fw-bold">Category Name</label>
+        <input asp-for="name" type="text" class="form-control" id="name" placeholder="Enter Category Name">
+        <span asp-validation-for="name" class="text text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary m-1">Add</button>
+</form>
+</div>

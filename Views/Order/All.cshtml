@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SalesInvoice.Models.Order>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<h1>All Orders</h1>
+
+<p>
+    <a asp-action="Add" class="btn btn-outline-success">Create New</a>
+</p>
+<form asp-action="Search" method="post">
+    <div class="row mx-5 my-3">
+        <div class="col-8">
+            <input class="form-control" id="searchKey" name="search" type="text" placeholder="Search On OrderCode Or CustomerName" />
+        </div>
+        <div class="col-4">
+            <button class="btn btn-primary w-50 " type="submit" id="search">Search</button>
+        </div>       
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.order_code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateAdded)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.order_code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateAdded)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id" class="btn btn-secondary">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
