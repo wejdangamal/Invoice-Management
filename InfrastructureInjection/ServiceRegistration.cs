@@ -6,7 +6,8 @@ namespace SalesInvoice.InfrastructureInjection
     {
         public static void Register(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

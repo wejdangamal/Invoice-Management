@@ -10,9 +10,9 @@ namespace SalesInvoice.Controllers
     public class CategoryController : Controller
     {
         private readonly ILogger<CategoryController> _logger;
-        private readonly IRepository<Category> repository;
+        private readonly IUnitOfWork repository;
 
-        public CategoryController(ILogger<CategoryController> logger, IRepository<Category> repository)
+        public CategoryController(ILogger<CategoryController> logger,IUnitOfWork repository)
         {
             _logger = logger;
             this.repository = repository;
@@ -25,7 +25,7 @@ namespace SalesInvoice.Controllers
         [HttpGet("Category/All/{page:int}/{pageSize:int}")]
         public IActionResult CategoryList(int page=1, int pageSize=10)
         {
-            var categoryList = repository.GetAll(page, pageSize).ToList();
+            var categoryList = repository.category.GetAll(page, pageSize).ToList();
             return View(categoryList);
         }
         [HttpGet]
@@ -49,7 +49,7 @@ namespace SalesInvoice.Controllers
                 };
                 try
                 {
-                    var done = await repository.Add(category);
+                    var done = await repository.category.Add(category);
                     if (done)
                     {
                         return RedirectToAction("CategoryList", new { page = 1, pageSize = 10 });
@@ -73,11 +73,11 @@ namespace SalesInvoice.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryVM model)
         {
-            var found = await repository.GetById(model.id);
+            var found = await repository.category.GetById(model.id);
             if (found != null)
             {
                 found.name = model.name;
-                var done = await repository.Update(found);
+                var done = await repository.category.Update(found);
                 if (done)
                 {
                     return RedirectToAction("CategoryList", new { page = 1, pageSize = 10 });
@@ -89,7 +89,7 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var res = await repository.Delete(id);
+            var res = await repository.category.Delete(id);
 
             return RedirectToAction("CategoryList", new { page = 1, pageSize = 10 });
 

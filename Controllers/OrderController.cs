@@ -8,30 +8,23 @@ namespace SalesInvoice.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly IRepository<Order> orderRepository;
-        private readonly IRepository<OrderItems> orderItemsRepository;
-        private readonly IRepository<Category> categoryRepository;
-        private readonly IRepository<Product> productRepository;
+        private readonly IUnitOfWork unitRepository;
 
-        public OrderController(IRepository<Order> orderRepository, IRepository<OrderItems> orderItemsRepository,
-            IRepository<Category> categoryRepository, IRepository<Product> productRepository)
+        public OrderController(IUnitOfWork unitRepository)
         {
-            this.orderRepository = orderRepository;
-            this.orderItemsRepository = orderItemsRepository;
-            this.categoryRepository = categoryRepository;
-            this.productRepository = productRepository;
+            this.unitRepository = unitRepository;
         }
         [HttpGet]
         public IActionResult All()
         {
-            List<Order> orders = orderRepository.GetAll().ToList();
+            List<Order> orders = unitRepository.order.GetAll().ToList();
             return View(orders);
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var orderDetails = await orderRepository.GetById(id);
-            IEnumerable<OrderItems> products = orderItemsRepository.GetAll(new string[] { "product" }).ToList();
+            var orderDetails = await unitRepository.order.GetById(id);
+            IEnumerable<OrderItems> products = unitRepository.orderItems.GetAll(new string[] { "product" }).ToList();
             products = products.Where(x => x.OrderId == orderDetails.id).ToList();
             OrderMasterDetailsVM details = new()
             {
@@ -66,7 +59,7 @@ namespace SalesInvoice.Controllers
             string orderCodeGenerate = dateTime.ToString("yyyyMMdd");
             ViewBag.orderCode = orderCode + orderCodeGenerate;
 
-            var categories = categoryRepository.GetAll(null).Select(x => new { Id = x.id, Name = x.name }).ToList();
+            var categories = unitRepository.category.GetAll(null).Select(x => new { Id = x.id, Name = x.name }).ToList();
             List<SelectListItem> categoryitems = new List<SelectListItem>
             {
                 new SelectListItem{Text="Choose Category",Value=""}
@@ -77,7 +70,7 @@ namespace SalesInvoice.Controllers
             }
             ViewBag.CategoryList = categoryitems;
 
-            var products = productRepository.GetAll(null).Select(x => new { Id = x.id, Name = x.productName }).ToList();
+            var products = unitRepository.product.GetAll(null).Select(x => new { Id = x.id, Name = x.productName }).ToList();
             List<SelectListItem> productItems = new List<SelectListItem>
             {
                 new SelectListItem{Text="Products",Value=""}
@@ -100,7 +93,7 @@ namespace SalesInvoice.Controllers
                 order_code = model.orderCode
 
             };
-            var res = await orderRepository.Add(order);
+            var res = await unitRepository.order.Add(order);
             if (res)
             {
                 foreach (var item in model.productsList)
@@ -112,7 +105,7 @@ namespace SalesInvoice.Controllers
                         QuantityOfProduct = int.Parse(item.quantity),
                         productId = int.Parse(item.product_Id)
                     };
-                    var result = await orderItemsRepository.Add(orderItem);
+                    var result = await unitRepository.orderItems.Add(orderItem);
                 }
 
                 return CreatedAtAction(nameof(Create), new { id = order.id });
@@ -123,14 +116,14 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var model = await orderRepository.GetById(id);
+            var model = await unitRepository.order.GetById(id);
             OrderMasterDetailsVM orderMaster = new()
             {
                 CustomerName = model.CustomerName,
                 orderCode = model.order_code,
                 dateAdded = model.dateAdded.ToString()
             };
-            IEnumerable<OrderItems> products = orderItemsRepository.GetAll(new string[] { "product", "order" }).ToList();
+            IEnumerable<OrderItems> products = unitRepository.orderItems.GetAll(new string[] { "product", "order" }).ToList();
             products = products.Where(x => x.OrderId == model.id).ToList();
             List<listOfProducts> list = new List<listOfProducts>();
             decimal price = 0;
@@ -158,13 +151,14 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var _result = await orderRepository.Delete(id);
+            var _result = await unitRepository.order.Delete(id);
             return RedirectToAction("All");
         }
         [HttpPost]
         public IActionResult Search(string search)
         {
-            IEnumerable<Order> orders = orderRepository
+            IEnumerable<Order> orders = unitRepository
+                .order
                 .GetAll()
                 .Where(
                 x => x.order_code == search ||

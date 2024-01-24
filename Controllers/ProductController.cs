@@ -9,25 +9,22 @@ namespace SalesInvoice.Controllers
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
-        private readonly IRepository<Product> repository;
-        private readonly IRepository<Category> categoryRepo;
-
-        public ProductController(ILogger<ProductController> logger, IRepository<Product> repository, IRepository<Category> categoryRepo)
+        private readonly IUnitOfWork repository;
+        public ProductController(ILogger<ProductController> logger,IUnitOfWork repository)
         {
             _logger = logger;
             this.repository = repository;
-            this.categoryRepo = categoryRepo;
         }
         [HttpGet("Product/All")]
         public IActionResult ProductList()
         {
-            var ProductList = repository.GetAll(new string[] { "category" }).ToList();
+            var ProductList = repository.product.GetAll(new string[] { "category" }).ToList();
             return View(ProductList);
         }
         [HttpGet]
         public IActionResult Add()
         {
-            var categories = categoryRepo.GetAll().ToList();
+            var categories = repository.category.GetAll().ToList();
             var selectlist = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Choose Category", Value = "" }
@@ -54,7 +51,7 @@ namespace SalesInvoice.Controllers
                 };
                 try
                 {
-                    var done = await repository.Add(newProduct);
+                    var done = await repository.product.Add(newProduct);
                     if (done)
                     {
                         return RedirectToAction("ProductList");
@@ -72,13 +69,13 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var modelVM = await repository.GetById(id);
+            var modelVM = await repository.product.GetById(id);
             return View(modelVM);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Product model)
         {
-            var found = await repository.GetById(model.id);
+            var found = await repository.product.GetById(model.id);
             if (found != null)
             {
                 found.price = model.price;
@@ -87,7 +84,7 @@ namespace SalesInvoice.Controllers
                 found.dateAdded = model.dateAdded;
                 found.categoryId = model.categoryId;
 
-                var done = await repository.Update(found);
+                var done = await repository.product.Update(found);
                 if (done)
                 {
                     return RedirectToAction("ProductList");
@@ -99,14 +96,14 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var res = await repository.Delete(id);
+            var res = await repository.product.Delete(id);
 
             return RedirectToAction("ProductList");
         }
         [HttpGet]
         public JsonResult GetByCategoryID(int categoryId)
         {
-            var products = repository.GetAll(null).Where(x => x.categoryId == categoryId).ToList();
+            var products = repository.product.GetAll(null).Where(x => x.categoryId == categoryId).ToList();
 
             List<SelectListItem> allProducts = new()
             {
@@ -121,7 +118,7 @@ namespace SalesInvoice.Controllers
         [HttpGet]
         public async Task<JsonResult> GetPrice(int productId)
         {
-            var product = await repository.GetById(productId);
+            var product = await repository.product.GetById(productId);
             decimal? price = product?.price;
             double? quantity = product?.Quantity;
             var data = new
