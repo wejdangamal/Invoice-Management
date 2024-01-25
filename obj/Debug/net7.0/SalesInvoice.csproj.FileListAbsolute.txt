@@ -524,3 +524,5 @@ D:\.net projects\Algoriza_Traning\Sales_Invoice\obj\Debug\net7.0\refint\SalesInv
 D:\.net projects\Algoriza_Traning\Sales_Invoice\obj\Debug\net7.0\SalesInvoice.pdb
 D:\.net projects\Algoriza_Traning\Sales_Invoice\obj\Debug\net7.0\SalesInvoice.genruntimeconfig.cache
 D:\.net projects\Algoriza_Traning\Sales_Invoice\obj\Debug\net7.0\ref\SalesInvoice.dll
+D:\.net projects\Algoriza_Traning\Sales_Invoice\bin\Debug\net7.0\AutoMapper.dll
+D:\.net projects\Algoriza_Traning\Sales_Invoice\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

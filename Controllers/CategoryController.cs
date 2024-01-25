@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SalesInvoice.IRepositoryPattern;
 using SalesInvoice.Models;
 using SalesInvoice.Models.ViewModels;
@@ -11,11 +12,13 @@ namespace SalesInvoice.Controllers
     {
         private readonly ILogger<CategoryController> _logger;
         private readonly IUnitOfWork repository;
+        private readonly IMapper mapper;
 
-        public CategoryController(ILogger<CategoryController> logger,IUnitOfWork repository)
+        public CategoryController(ILogger<CategoryController> logger,IUnitOfWork repository,IMapper mapper)
         {
             _logger = logger;
             this.repository = repository;
+            this.mapper = mapper;
         }
         [HttpGet]
         public IActionResult Index()
@@ -43,10 +46,7 @@ namespace SalesInvoice.Controllers
         {
             if (ModelState.IsValid)
             {
-                Category category = new()
-                {
-                    name = model.name
-                };
+               var category= mapper.Map<Category>(model);
                 try
                 {
                     var done = await repository.category.Add(category);
@@ -74,9 +74,11 @@ namespace SalesInvoice.Controllers
         public async Task<IActionResult> Edit(CategoryVM model)
         {
             var found = await repository.category.GetById(model.id);
+                   
             if (found != null)
             {
-                found.name = model.name;
+                mapper.Map(model,found);
+                
                 var done = await repository.category.Update(found);
                 if (done)
                 {

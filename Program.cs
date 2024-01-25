@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SalesInvoice.AutoMapper;
 using SalesInvoice.Data;
 using SalesInvoice.InfrastructureInjection;
 
@@ -21,6 +22,7 @@ namespace SalesInvoice
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.Register();
+            builder.Services.AddAutoMapper(typeof(Mapp));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

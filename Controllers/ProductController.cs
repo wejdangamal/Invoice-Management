@@ -3,6 +3,7 @@ using SalesInvoice.IRepositoryPattern;
 using SalesInvoice.Models.ViewModels;
 using SalesInvoice.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using AutoMapper;
 
 namespace SalesInvoice.Controllers
 {
@@ -10,10 +11,13 @@ namespace SalesInvoice.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IUnitOfWork repository;
-        public ProductController(ILogger<ProductController> logger,IUnitOfWork repository)
+        private readonly IMapper mapper;
+
+        public ProductController(ILogger<ProductController> logger,IUnitOfWork repository,IMapper mapper)
         {
             _logger = logger;
             this.repository = repository;
+            this.mapper = mapper;
         }
         [HttpGet("Product/All")]
         public IActionResult ProductList()
@@ -41,14 +45,7 @@ namespace SalesInvoice.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product newProduct = new()
-                {
-                    productName = model.productName,
-                    categoryId = model.categoryId,
-                    dateAdded= DateTime.Now,
-                    price= model.price,
-                    Quantity = model.Quantity
-                };
+                Product newProduct = mapper.Map<Product>(model);
                 try
                 {
                     var done = await repository.product.Add(newProduct);
@@ -78,12 +75,7 @@ namespace SalesInvoice.Controllers
             var found = await repository.product.GetById(model.id);
             if (found != null)
             {
-                found.price = model.price;
-                found.productName = model.productName;
-                found.Quantity = model.Quantity;
-                found.dateAdded = model.dateAdded;
-                found.categoryId = model.categoryId;
-
+                mapper.Map(model, found);
                 var done = await repository.product.Update(found);
                 if (done)
                 {
@@ -92,7 +84,6 @@ namespace SalesInvoice.Controllers
             }
             return View();
         }
-
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

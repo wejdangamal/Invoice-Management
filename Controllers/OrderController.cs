@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SalesInvoice.IRepositoryPattern;
 using SalesInvoice.Models;
@@ -9,10 +10,12 @@ namespace SalesInvoice.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork unitRepository;
+        private readonly IMapper mapper;
 
-        public OrderController(IUnitOfWork unitRepository)
+        public OrderController(IUnitOfWork unitRepository, IMapper mapper)
         {
             this.unitRepository = unitRepository;
+            this.mapper = mapper;
         }
         [HttpGet]
         public IActionResult All()
@@ -26,24 +29,20 @@ namespace SalesInvoice.Controllers
             var orderDetails = await unitRepository.order.GetById(id);
             IEnumerable<OrderItems> products = unitRepository.orderItems.GetAll(new string[] { "product" }).ToList();
             products = products.Where(x => x.OrderId == orderDetails.id).ToList();
-            OrderMasterDetailsVM details = new()
-            {
-                CustomerName = orderDetails.CustomerName,
-                dateAdded = orderDetails.dateAdded.ToString(),
-                orderCode = orderDetails.order_code,
-            };
+            OrderMasterDetailsVM details = mapper.Map<OrderMasterDetailsVM>(orderDetails);
+            //    new()
+            //{
+            //    CustomerName = orderDetails.CustomerName,
+            //    dateAdded = orderDetails.dateAdded.ToString(),
+            //    orderCode = orderDetails.order_code,
+            //};
             List<listOfProducts> list = new List<listOfProducts>();
             decimal price = 0;
             foreach (var item in products)
             {
-                list.Add(
-                   new listOfProducts
-                   {
-                       price = item.Price.ToString(),
-                       product_Id = item.productId.ToString(),
-                       quantity = item.QuantityOfProduct.ToString(),
-                       product_Name = item.product.productName
-                   });
+                var mapped = mapper.Map<listOfProducts>(item);
+                mapper.Map(item.product, mapped);
+                list.Add(mapped);
                 price += (decimal)(item.Price) * (item.QuantityOfProduct);
             }
             details.productsList = list;
@@ -86,13 +85,8 @@ namespace SalesInvoice.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] OrderMasterDetailsVM model)
         {
-            Order order = new Order()
-            {
-                CustomerName = model.CustomerName,
-                dateAdded = Convert.ToDateTime(model.dateAdded),
-                order_code = model.orderCode
+            Order order = mapper.Map<Order>(model);
 
-            };
             var res = await unitRepository.order.Add(order);
             if (res)
             {
@@ -117,12 +111,7 @@ namespace SalesInvoice.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var model = await unitRepository.order.GetById(id);
-            OrderMasterDetailsVM orderMaster = new()
-            {
-                CustomerName = model.CustomerName,
-                orderCode = model.order_code,
-                dateAdded = model.dateAdded.ToString()
-            };
+            OrderMasterDetailsVM orderMaster = mapper.Map<OrderMasterDetailsVM>(model);
             IEnumerable<OrderItems> products = unitRepository.orderItems.GetAll(new string[] { "product", "order" }).ToList();
             products = products.Where(x => x.OrderId == model.id).ToList();
             List<listOfProducts> list = new List<listOfProducts>();
